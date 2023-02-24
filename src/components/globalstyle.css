@@ -50,6 +50,10 @@ a {
   text-decoration: none;
 }
 
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
 @import "./Navigation/style.css";
 @import "./MainPage/style.css";
 @import "./Loader/style.css";

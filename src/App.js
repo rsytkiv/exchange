@@ -1,12 +1,12 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
-import MainPage from './components/MainPage';
-import ExchangePage from './components/ExchangePage';
-import Navigation from './components/Navigation';
+import { MainPage } from './components/MainPage';
+import { RulesPage } from './components/Rules';
+import { Navigation } from './components/Navigation';
+import { FooterComponent } from './components/Footer';
 
 import './components/globalstyle.css';
-import { FooterComponent } from './components/Footer';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Navigation />
       <Routes>
         <Route path='/' element={<MainPage />} />
-        <Route path='/exchange' element={<ExchangePage />} />
+        <Route path='/rules' element={<RulesPage />} />
       </Routes>
       <FooterComponent />
     </BrowserRouter>

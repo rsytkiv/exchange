@@ -7,9 +7,7 @@ import { Loader } from '../Loader';
 
 import { emptyInputErrorMessage } from '../Constants';
 
-import Logo from '../../images/logo.jpeg';
-
-const MainPage = () => {
+export const MainPage = () => {
   const { currency } = useSelector((state) => state.rootReducer);
   const [receive, setReceive] = useState(0);
   const [gave, setGave] = useState(0);
@@ -62,87 +60,78 @@ const MainPage = () => {
     <>
       {showLoader && <Loader />}
       <div className="mainPage">
-        <div className="buttonsContainer">
-          <img src={Logo} className="buttonsLogo" alt="logo" />
-          <span>Exchange rate</span>
-          <span>News</span>
-          <span>FAQ</span>
-          <span>About</span>
-        </div>
-      <div className="exchangeContainer">
-        <div className="exchangeTextContainer">
-          <h1>Exchange Crypto simple</h1>
-          <div className="margin">
-            Fast, automatic and no hidden commissions.
-            The easiest way to exchange cryptocurrency
-            online. Minimal form of personal identification.
+        <div className="exchangeContainer">
+          <div className="exchangeTextContainer">
+            <h1>Exchange Crypto simple</h1>
+            <div className="margin">
+              Fast, automatic and no hidden commissions.
+              The easiest way to exchange cryptocurrency
+              online. Minimal form of personal identification.
+            </div>
+            <h1>What is the transaction fee?</h1>
+            <div>
+              The transaction fee depends on the network fee for
+              the coins you are trading. All commissions are
+              included in the transaction amount, which you can
+              see before proceeding with the exchange.
+            </div>
           </div>
-          <h1>What is the transaction fee?</h1>
-          <div>
-            The transaction fee depends on the network fee for
-            the coins you are trading. All commissions are
-            included in the transaction amount, which you can
-            see before proceeding with the exchange.
+          <div className="exchangeInterfaceContainer">
+            <form className="buyContainer" onSubmit={handleSubmit(onSubmit, onError)}>
+              <div>
+                <h3>Choose pair:</h3>
+                <select
+                  {...register('currency', {
+                    required: emptyInputErrorMessage,
+                    onChange: (event) => setCurrentCrypto(event.target.value),
+                  })}
+                  defaultValue="Select pair"
+                >
+                  {currency?.map((item) => (
+                    <option key={item.symbol}>
+                      {item.symbol.replace('USDT', '-USDT')}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <h3>You send {'(USDT)'}:</h3>
+                <input
+                  type="text"
+                  {...register('send', {
+                    required: emptyInputErrorMessage,
+                    onChange: (event) => setGave(event.target.value)
+                  })}
+                />
+                {errors?.send && <span className='errorMessage'>{errors?.send.message}</span>}
+              </div>
+              <div>
+                <h3>You receive:</h3>
+                <input
+                  type="text"
+                  disabled
+                  {...register('receive', {
+                    deps: ['send'],
+                    value: receive,
+                  })}
+                />
+                {errors?.receive && <span className='errorMessage'>{errors?.receive.message}</span>}
+              </div>
+              <div>
+                <h3>Your address:</h3>
+                <input
+                  type="text"
+                  {...register('address', {
+                    required: emptyInputErrorMessage,
+                  })}
+                />
+                {errors?.address && <span className='errorMessage'>{errors?.address.message}</span>}
+              </div>
+              <button className='submitButton' type='submit'>Submit</button>
+            </form>
           </div>
-        </div>
-        <div className="exchangeInterfaceContainer">
-          <form className="buyContainer" onSubmit={handleSubmit(onSubmit, onError)}>
-            <div>
-              <h3>Choose pair:</h3>
-              <select
-                {...register('currency', {
-                  required: emptyInputErrorMessage,
-                  onChange: (event) => setCurrentCrypto(event.target.value),
-                })}
-                defaultValue="Select pair"
-              >
-                {currency?.map((item) => (
-                  <option key={item.symbol}>
-                    {item.symbol.replace('USDT', '-USDT')}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <h3>You send {'(USDT)'}:</h3>
-              <input
-                type="text"
-                {...register('send', {
-                  required: emptyInputErrorMessage,
-                  onChange: (event) => setGave(event.target.value)
-                })}
-              />
-              {errors?.send && <span className='errorMessage'>{errors?.send.message}</span>}
-            </div>
-            <div>
-              <h3>You receive:</h3>
-              <input
-                type="text"
-                disabled
-                {...register('receive', {
-                  deps: ['send'],
-                  value: receive,
-                })}
-              />
-              {errors?.receive && <span className='errorMessage'>{errors?.receive.message}</span>}
-            </div>
-            <div>
-              <h3>Your address:</h3>
-              <input
-                type="text"
-                {...register('address', {
-                  required: emptyInputErrorMessage,
-                })}
-              />
-              {errors?.address && <span className='errorMessage'>{errors?.address.message}</span>}
-            </div>
-            <button className='submitButton' type='submit'>Submit</button>
-          </form>
         </div>
       </div>
-    </div>
     </>
   );
 };
-
-export default MainPage;
