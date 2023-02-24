@@ -1,0 +1,140 @@
+.exchangeContainer {
+  background-color: #bfd7b5;
+  background-size: 100%;
+  color: #413c58;
+  margin: 30px auto;
+  border-radius: 7px;
+  padding: 105px 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1050px;
+}
+
+.exchangeTextContainer {
+  width: 40%;
+}
+
+.exchangeTextContainer > h1 {
+  font-size: 38px;
+  line-height: 140%;
+  font-weight: bold;
+}
+
+.exchangeTextContainer > div {
+  font-size: 16px;
+  line-height: 26px;
+  margin-top: 20px;
+}
+
+.exchangeInterfaceContainer {
+  background: #a3c4bc;
+  border-radius: 6px;
+  width: 40%;
+}
+
+.exchangeInterfaceContainer input, select {
+  width: 100%;
+  height: 47px;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+  outline: none;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #a3c4bc;
+  padding: 5px 7px;
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.exchangeInterfaceContainer button {
+  font-family: 'Roboto';
+  background-color: #413c58;
+  color: white;
+  text-transform: capitalize;
+  font-weight: bold;
+  letter-spacing: 3px;
+  padding: 15px 10px;
+}
+
+.buyContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 79px 46px;
+}
+
+.buyContainer div {
+  margin-bottom: 10px;
+}
+
+.buyContainer h3 {
+  margin-bottom: 7px;
+}
+
+.submitButton {
+  border: 1px solid #413c58;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  max-width: 1050px;
+  margin: 0 auto;
+  color: #413c58;
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+.buttonsContainer span:hover {
+  cursor: pointer;
+}
+
+.buttonsLogo {
+  height: 40px;
+  position: relative;
+  top: 15px;
+}
+
+.errorMessage {
+  font-size: 14px;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .exchangeContainer {
+    flex-direction: column;
+    padding: 40px 0;
+    border-radius: 0;
+    margin-top: 0;
+  }
+
+  .exchangeInterfaceContainer {
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 0;
+  }
+
+  .exchangeTextContainer {
+    padding: 0 20px;
+    width: auto;
+  }
+
+  .buyContainer > * {
+    display: inline-block;
+  }
+
+  .exchangeInterfaceContainer input, select, button {
+    border-radius: 0;
+    padding: 15px 10px;
+  }
+
+  .buttonsContainer {
+    display: none;
+  }
+}

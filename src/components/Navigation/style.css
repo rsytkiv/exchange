@@ -1,0 +1,143 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #413c58;
+  border-bottom: 1px solid #f0f0f0;
+  height: 44px;
+  justify-content: space-between;
+}
+
+.navbar {
+  display: inherit;
+  justify-content: space-around;
+}
+
+.navbar a:-webkit-any-link {
+  font-weight: bold;
+}
+
+.homeButton, .exchangeButton {
+  height: 44px;
+  vertical-align: middle;
+}
+
+.homeButtonContainer {
+  background-color: #32c99c;
+  height: 44px;
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: space-around;
+  font-size: 12px;
+  width: 100%;
+}
+
+.currencyBoldText {
+  font-weight: 500;
+  color: #4b636e;
+}
+
+.navigationLogo {
+  height: 30px;
+  z-index: -1;
+  display: none;
+  padding: 0 5px;
+}
+
+.mobileMenu {
+  display: none;
+  width: 30px;
+  height: 30px;
+  padding-right: 10px;
+}
+
+.mobileMenuContent {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #4b636e;
+  opacity: 0.5;
+}
+
+.mobileNavigationList {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .priceContainer {
+    display: none;
+  }
+
+  .navigationLogo {
+    display: block;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+}
+
+.margin {
+  margin-bottom: 40px;
+}
+
+.burger {
+  width: 32px;
+  height: 24px;
+  cursor: pointer;
+  right: 15px;
+  top: 7px;
+  position: absolute;
+  z-index: 9999;
+  margin-top: 13px;
+}
+
+.burger span {
+  width: 100%;
+  height: 4px;
+  background-color: black;
+  border-radius: 12px;
+  display: block;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.burger span::before,
+.burger span::after {
+  content: "";
+  width: 100%;
+  background-color: black;
+  display: block;
+  transition: all 0.5s ease-in-out;
+  border-radius: 12px;
+  height: 4px;
+}
+
+.burger span::before {
+  transform: translateY(-10px);
+
+}
+
+.burger span::after {
+  transform: translateY(10px);
+  margin-top: -4px;
+}
+
+
+.burger.active span {
+  background-color: transparent;
+}
+
+.burger.active span::before {
+  transform: rotateZ(45deg) translateY(0);
+}
+
+.burger.active span::after {
+  transform: rotateZ(-45deg) translateY(0);
+}
+
