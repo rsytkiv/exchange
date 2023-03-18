@@ -62,7 +62,6 @@
   height: 35%;
   background-color: #4b636e;
   justify-content: center;
-  align-items: flex-end;
   display: none;
   animation: fade-out 500ms forwards;
 }
@@ -75,6 +74,7 @@
   font-size: 22px;
   width: 100%;
   text-align: center;
+  padding-top: 45px;
 }
 
 .visible {

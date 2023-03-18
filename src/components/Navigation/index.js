@@ -11,7 +11,7 @@ import Logo from '../../images/logo.jpeg';
 
 export const Navigation = () => {
   const dispatch = useDispatch();
-  const { currency, prevCurrency } = useSelector((state) => state.rootReducer);
+  const { currency } = useSelector((state) => state.rootReducer);
   const [active, setActive] = useState(false);
   const slicedArray = currency.slice(0, 6);
 
@@ -20,24 +20,15 @@ export const Navigation = () => {
 
     const interval = setInterval(() => {
       dispatch(fetchCurrencyPrice(PAIRS_LIST));
-    }, '3000');
+    }, '10000');
 
     return () => {
-      clearInterval(interval)
-    }
+      clearInterval(interval);
+    };
   }, [dispatch]);
-
-  useEffect(() => {
-    const burger = document.querySelector('.burger');
-
-    burger.addEventListener('click', () => {
-      burger.classList.toggle('active');
-    });
-  }, []);
 
   const onClickHandler = () => {
     setActive(!active);
-    console.log(active);
   };
 
   return (
@@ -45,12 +36,6 @@ export const Navigation = () => {
       <div className="header">
         <div className="navbar">
           <img src={Logo} className="navigationLogo" alt="logo" />
-          {/* <div className="homeButtonContainer">
-            <Link className="homeButton" to="/">Home</Link>
-          </div>
-          <div>
-            <Link className="exchangeButton" to="/exchange">Exchange</Link>
-          </div> */}
         </div>
         <div className="priceContainer">
           {slicedArray?.map((item) => (
@@ -61,7 +46,10 @@ export const Navigation = () => {
         </div>
         <div className="mobileMenu">
           <div
-            className="burger"
+            className={classNames({
+              'burger': true,
+              'active': active,
+            })}
             onClick={onClickHandler}
           >
             <span></span>
@@ -72,10 +60,16 @@ export const Navigation = () => {
             })}
           >
             <ul className="mobileNavigationList">
-              <li className="mobileNavigationField">
+              <li
+                className="mobileNavigationField"
+                onClick={onClickHandler}
+              >
                 <Link to="/">Home</Link>
               </li>
-              <li className="mobileNavigationField">
+              <li
+                className="mobileNavigationField"
+                onClick={onClickHandler}
+              >
                 <Link to="/rules">Rules</Link>
               </li>
               <li className="mobileNavigationField">About</li>

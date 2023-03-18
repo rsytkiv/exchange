@@ -54,6 +54,10 @@ a {
     -webkit-appearance: none;
 }
 
+.root {
+	overflow: hidden;
+}
+
 @import "./Navigation/style.css";
 @import "./MainPage/style.css";
 @import "./Loader/style.css";
