@@ -72,8 +72,18 @@ export const Navigation = () => {
               >
                 <Link to="/rules">Rules</Link>
               </li>
-              <li className="mobileNavigationField">About</li>
-              <li className="mobileNavigationField">Terms</li>
+              <li
+                className="mobileNavigationField"
+                onClick={onClickHandler}
+              >
+                <Link to="/faq">FAQ</Link>
+              </li>
+              <li
+                className="mobileNavigationField"
+                onClick={onClickHandler}
+              >
+                <Link to="/help">Help</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -87,7 +97,9 @@ export const Navigation = () => {
           <Link to="/rules">Rules</Link>
         </span>
         <span>FAQ</span>
-        <span>About</span>
+        <span>
+          <Link to="/help">Help</Link>
+        </span>
       </div>
     </>
   );

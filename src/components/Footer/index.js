@@ -11,7 +11,7 @@ export const FooterComponent = () => {
         <br />
         Support hours:
         <br />
-        Daily from 06:00 to 19:00 (UTC).
+        Daily from 6:00 to 21:00 (UTC).
       </div>
     </div>
   );

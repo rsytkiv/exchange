@@ -83,7 +83,7 @@
 }
 
 .mobileNavigationField {
-  border-bottom: 1px solid black;
+  border-top: 1px solid black;
   width: 100%;
   background-color: white;
   padding: 30px 0;
@@ -138,6 +138,7 @@
   color: #413c58;
   font-weight: bold;
   padding: 0 10px;
+  padding-bottom: 15px;
 }
 
 .buttonsContainer span:hover {

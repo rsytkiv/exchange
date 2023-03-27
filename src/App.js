@@ -5,6 +5,8 @@ import { MainPage } from './components/MainPage';
 import { RulesPage } from './components/Rules';
 import { Navigation } from './components/Navigation';
 import { FooterComponent } from './components/Footer';
+import { Contact } from './components/ContactUs';
+import { FaqPage } from './components/FaqPage';
 
 import './components/globalstyle.css';
 
@@ -15,6 +17,8 @@ function App() {
       <Routes>
         <Route path='/' element={<MainPage />} />
         <Route path='/rules' element={<RulesPage />} />
+        <Route path='/faq' element={<FaqPage />} />
+        <Route path='/help' element={<Contact />} />
       </Routes>
       <FooterComponent />
     </BrowserRouter>

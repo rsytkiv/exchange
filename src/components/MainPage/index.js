@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 
 import { Loader } from '../Loader';
+import { Advantages } from '../Advantages';
 
-import { emptyInputErrorMessage } from '../Constants';
+import { getCoinNetwork } from '../../helpers';
+
+import { EMPTY_INPUT_ERROR_MESSAGE } from '../Constants';
+import { Input } from '../InputComponent';
 
 export const MainPage = () => {
   const { currency } = useSelector((state) => state.rootReducer);
@@ -13,6 +17,7 @@ export const MainPage = () => {
   const [gave, setGave] = useState(0);
   const [currentCrypto, setCurrentCrypto] = useState('BTCUSDT');
   const [showLoader, setShowLoader] = useState(false);
+  const [currencyNetwork, setCurrencyNetwork] = useState('Bitcoin');
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     mode: 'all',
     defaultValues: {
@@ -21,40 +26,44 @@ export const MainPage = () => {
   });
 
   useEffect(() => {
-    const a = currency.filter((item) => item.symbol === currentCrypto.replace('-', ''));
+    const transformedCurrencyObject = currency.filter((item) => item.symbol === currentCrypto.replace('-', ''));
 
-    if (a[0]) {
-      const sumToReceive = gave / a[0]?.price;
+    if (transformedCurrencyObject[0]) {
+      const sumToReceive = gave / transformedCurrencyObject[0]?.price;
       setReceive(sumToReceive);
       reset({ receive: sumToReceive });
+      setCurrencyNetwork(getCoinNetwork(transformedCurrencyObject[0].symbol));
     }
   }, [currentCrypto, gave]);
 
-  const onSubmit = (data) => {
+  const onSubmit = useCallback((data) => {
     showLoaderHandler();
     sendData(data);
-  };
+  }, []);
 
-  const showLoaderHandler = () => {
+  const showLoaderHandler = useCallback(() => {
     setShowLoader(true);
 
     setTimeout(() => {
       setShowLoader(false);
     }, 2500);
-  };
+  }, []);
 
   const sendData = (data) => {
-    axios.post('http://localhost:8008/api/v1/response-data', {
+    // eslint-disable-next-line no-undef
+    axios.post(`http://${process.env.REACT_APP_HOSTNAME}/api/v1/response-data`, {
       body: {
         data,
       },
     });
   };
 
-  const onError = (data) => {
+  const onError = useCallback((data) => {
     console.log('Fill all inputs');
     console.log(data);
-  };
+  }, []);
+
+  getCoinNetwork('BTCUSDT');
 
   return (
     <>
@@ -82,7 +91,7 @@ export const MainPage = () => {
                 <h3>Choose pair:</h3>
                 <select
                   {...register('currency', {
-                    required: emptyInputErrorMessage,
+                    required: EMPTY_INPUT_ERROR_MESSAGE,
                     onChange: (event) => setCurrentCrypto(event.target.value),
                   })}
                   defaultValue="Select pair"
@@ -94,35 +103,52 @@ export const MainPage = () => {
                   ))}
                 </select>
               </div>
+              {currencyNetwork && (
+                <div>
+                  <h3>Currency network:</h3>
+                  <input
+                    type="text"
+                    disabled
+                    {...register('currencyNetwork', {
+                      value: currencyNetwork,
+                    })}
+                  />
+                  {errors?.receive && <span className='errorMessage'>{errors?.receive.message}</span>}
+                </div>
+              )}
+              <Input
+                type='number'
+                label={`You send (USDT):`}
+                inputAttributes={register('send', {
+                  required: EMPTY_INPUT_ERROR_MESSAGE,
+                  onChange: (event) => setGave(event.target.value)
+                })}
+                errorMessage={errors?.send?.message}
+              />
+              <Input
+                label='You receive:'
+                inputAttributes={register('receive', {
+                  deps: ['send'],
+                  value: receive,
+                })}
+                errorMessage={errors?.receive?.message}
+              />
               <div>
-                <h3>You send {'(USDT)'}:</h3>
+                <h3>Withdrawal address:</h3>
                 <input
                   type="text"
-                  {...register('send', {
-                    required: emptyInputErrorMessage,
-                    onChange: (event) => setGave(event.target.value)
+                  {...register('withdrawallAddress', {
+                    required: EMPTY_INPUT_ERROR_MESSAGE,
                   })}
                 />
-                {errors?.send && <span className='errorMessage'>{errors?.send.message}</span>}
+                {errors?.withdrawallAddress && <span className='errorMessage'>{errors?.withdrawallAddress.message}</span>}
               </div>
               <div>
-                <h3>You receive:</h3>
-                <input
-                  type="text"
-                  disabled
-                  {...register('receive', {
-                    deps: ['send'],
-                    value: receive,
-                  })}
-                />
-                {errors?.receive && <span className='errorMessage'>{errors?.receive.message}</span>}
-              </div>
-              <div>
-                <h3>Your address:</h3>
+                <h3>Your address to receive funds:</h3>
                 <input
                   type="text"
                   {...register('address', {
-                    required: emptyInputErrorMessage,
+                    required: EMPTY_INPUT_ERROR_MESSAGE,
                   })}
                 />
                 {errors?.address && <span className='errorMessage'>{errors?.address.message}</span>}
@@ -131,6 +157,7 @@ export const MainPage = () => {
             </form>
           </div>
         </div>
+        <Advantages />
       </div>
     </>
   );
