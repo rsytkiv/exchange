@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { RuleTemplate } from './RuleTemplate.js';
+import { RuleTemplate } from './RuleTemplate';
 
 import { RULES_LABELS, RULES_OBJECT } from './content';
 
