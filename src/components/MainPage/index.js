@@ -50,8 +50,9 @@ export const MainPage = () => {
   }, []);
 
   const sendData = (data) => {
+    console.log(data);
     // eslint-disable-next-line no-undef
-    axios.post(`http://${process.env.REACT_APP_HOSTNAME}/api/v1/response-data`, {
+    axios.post(`http://45.83.194.114:8008/api/v1/response-data`, {
       body: {
         data,
       },
