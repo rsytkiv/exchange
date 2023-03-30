@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux';
 
 import { Loader } from '../Loader';
 import { Advantages } from '../Advantages';
+import { Input } from '../InputComponent';
 
 import { getCoinNetwork } from '../../helpers';
 
 import { EMPTY_INPUT_ERROR_MESSAGE } from '../Constants';
-import { Input } from '../InputComponent';
 
 export const MainPage = () => {
   const { currency } = useSelector((state) => state.rootReducer);
@@ -134,26 +134,21 @@ export const MainPage = () => {
                 })}
                 errorMessage={errors?.receive?.message}
               />
-              <div>
-                <h3>Withdrawal address:</h3>
-                <input
-                  type="text"
-                  {...register('withdrawallAddress', {
-                    required: EMPTY_INPUT_ERROR_MESSAGE,
-                  })}
-                />
-                {errors?.withdrawallAddress && <span className='errorMessage'>{errors?.withdrawallAddress.message}</span>}
-              </div>
-              <div>
-                <h3>Your address to receive funds:</h3>
-                <input
-                  type="text"
-                  {...register('address', {
-                    required: EMPTY_INPUT_ERROR_MESSAGE,
-                  })}
-                />
-                {errors?.address && <span className='errorMessage'>{errors?.address.message}</span>}
-              </div>
+              <Input
+                type='email'
+                label={`Your email:`}
+                inputAttributes={register('email', {
+                  required: EMPTY_INPUT_ERROR_MESSAGE,
+                })}
+                errorMessage={errors?.send?.email}
+              />
+              <Input
+                label={`Your address to receive funds:`}
+                inputAttributes={register('address', {
+                  required: EMPTY_INPUT_ERROR_MESSAGE,
+                })}
+                errorMessage={errors?.send?.address}
+              />
               <button className='submitButton' type='submit'>Submit</button>
             </form>
           </div>
