@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Input = ({ type, label, disabled, inputAttributes, errorMessage }) => {
+export const Input = ({
+  type,
+  label,
+  disabled,
+  inputAttributes,
+  errorMessage,
+  cssClasses,
+ }) => {
   return (
-    <div>
+    <div className={cssClasses}>
       <h3>{label}</h3>
       <input
         type={type}
@@ -19,6 +26,7 @@ Input.defaultProps = {
   type: '',
   errorMessage: '',
   disabled: false,
+  cssClasses: '',
 };
 
 Input.propTypes = {
@@ -32,4 +40,5 @@ Input.propTypes = {
     maxLength: PropTypes.number,
   }),
   errorMessage: PropTypes.string,
+  cssClasses: PropTypes.string,
 };

@@ -105,21 +105,19 @@ export const MainPage = () => {
                 </select>
               </div>
               {currencyNetwork && (
-                <div>
-                  <h3>Currency network:</h3>
-                  <input
-                    type="text"
-                    disabled
-                    {...register('currencyNetwork', {
-                      value: currencyNetwork,
-                    })}
-                  />
-                  {errors?.receive && <span className='errorMessage'>{errors?.receive.message}</span>}
-                </div>
+                <Input
+                  type='text'
+                  label="Currency network:"
+                  disabled
+                  inputAttributes={register('currencyNetwork', {
+                    value: currencyNetwork,
+                  })}
+                  errorMessage={errors?.currencyNetwork?.message}
+                />
               )}
               <Input
                 type='number'
-                label={`You send (USDT):`}
+                label="You send (USDT):"
                 inputAttributes={register('send', {
                   required: EMPTY_INPUT_ERROR_MESSAGE,
                   onChange: (event) => setGave(event.target.value)
@@ -136,14 +134,14 @@ export const MainPage = () => {
               />
               <Input
                 type='email'
-                label={`Your email:`}
+                label="Your email:"
                 inputAttributes={register('email', {
                   required: EMPTY_INPUT_ERROR_MESSAGE,
                 })}
                 errorMessage={errors?.send?.email}
               />
               <Input
-                label={`Your address to receive funds:`}
+                label="Your address to receive funds:"
                 inputAttributes={register('address', {
                   required: EMPTY_INPUT_ERROR_MESSAGE,
                 })}

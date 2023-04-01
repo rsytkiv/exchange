@@ -1,4 +1,4 @@
-.exchangeInterfaceContainer input, select {
+input, select, textarea {
   width: 100%;
   height: 47px;
   color: white;
@@ -18,7 +18,7 @@
   opacity: 1;
 }
 
-.exchangeInterfaceContainer button {
+button {
   font-family: 'Roboto';
   background-color: #413c58;
   color: white;
@@ -26,6 +26,7 @@
   font-weight: bold;
   letter-spacing: 3px;
   padding: 15px 10px;
+  width: 100%;
 }
 
 .buyContainer div {
