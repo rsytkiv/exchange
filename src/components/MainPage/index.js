@@ -64,8 +64,6 @@ export const MainPage = () => {
     console.log(data);
   }, []);
 
-  getCoinNetwork('BTCUSDT');
-
   return (
     <>
       {showLoader && <Loader />}
