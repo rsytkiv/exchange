@@ -13,12 +13,12 @@ textarea {
   height: 130px;
 }
 
-.contactContainer input, button {
+.contactContainer input, #contactUsSubmit {
   width: 45%;
 }
 
 @media (max-width: 768px) {
-  .contactContainer input, button {
+  .contactContainer input, #contactUsSubmit {
     width: 100%;
   }
 }

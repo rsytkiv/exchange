@@ -80,6 +80,7 @@ export const Contact = () => {
             />
           </div>
           <button
+            id="contactUsSubmit"
             className='submitButton'
             type='submit'
             onSubmit={handleSubmit}

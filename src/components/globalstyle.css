@@ -53,7 +53,7 @@ a {
 }
 
 ::-webkit-scrollbar {
-    -webkit-appearance: none;
+	-webkit-appearance: none;
 }
 
 html, body {
@@ -76,3 +76,4 @@ h1 {
 @import "./InputComponent/style.css";
 @import "./Rules/style.css";
 @import "./ContactUs/style.css";
+@import "./Modal/style.css";

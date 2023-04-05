@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux';
 import { Loader } from '../Loader';
 import { Advantages } from '../Advantages';
 import { Input } from '../InputComponent';
+import { Modal } from '../Modal';
 
-import { getCoinNetwork } from '../../helpers';
+import { generateRandomNumber, getCoinNetwork } from '../../helpers';
 
 import { EMPTY_INPUT_ERROR_MESSAGE } from '../Constants';
 
@@ -18,6 +19,8 @@ export const MainPage = () => {
   const [currentCrypto, setCurrentCrypto] = useState('BTCUSDT');
   const [showLoader, setShowLoader] = useState(false);
   const [currencyNetwork, setCurrencyNetwork] = useState('Bitcoin');
+  const [showModal, setShowModal] = useState(false);
+  const [exchangeId, setExchangeId] = useState(0);
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     mode: 'all',
     defaultValues: {
@@ -39,6 +42,7 @@ export const MainPage = () => {
   const onSubmit = useCallback((data) => {
     showLoaderHandler();
     sendData(data);
+    setExchangeId(generateRandomNumber());
   }, []);
 
   const showLoaderHandler = useCallback(() => {
@@ -46,13 +50,14 @@ export const MainPage = () => {
 
     setTimeout(() => {
       setShowLoader(false);
-    }, 2500);
+      setShowModal(true);
+    }, 1700);
   }, []);
 
   const sendData = (data) => {
     console.log(data);
     // eslint-disable-next-line no-undef
-    axios.post(`http://45.83.194.114:8008/api/v1/response-data`, {
+    axios.post(`http://localhost:8008/api/v1/response-data`, {
       body: {
         data,
       },
@@ -67,6 +72,16 @@ export const MainPage = () => {
   return (
     <>
       {showLoader && <Loader />}
+      {showModal && (
+        <Modal
+          modalState={showModal}
+          setModalState={setShowModal}
+          exchangeId={exchangeId}
+          sumToSend={gave}
+          sumtoReceive={receive}
+          currency={currentCrypto.replace('USDT', '')}
+        />
+      )}
       <div className="mainPage">
         <div className="exchangeContainer">
           <div className="exchangeTextContainer">
