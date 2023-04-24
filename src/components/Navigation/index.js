@@ -76,12 +76,6 @@ export const Navigation = () => {
                 className="mobileNavigationField"
                 onClick={onClickHandler}
               >
-                <Link to="/faq">FAQ</Link>
-              </li>
-              <li
-                className="mobileNavigationField"
-                onClick={onClickHandler}
-              >
                 <Link to="/help">Help</Link>
               </li>
             </ul>
@@ -96,7 +90,6 @@ export const Navigation = () => {
         <span>
           <Link to="/rules">Rules</Link>
         </span>
-        <span>FAQ</span>
         <span>
           <Link to="/help">Help</Link>
         </span>

@@ -6,11 +6,10 @@ import { useSelector } from 'react-redux';
 import { Loader } from '../Loader';
 import { Advantages } from '../Advantages';
 import { Input } from '../InputComponent';
-import { Modal } from '../Modal';
 
 import { generateRandomNumber, getCoinNetwork } from '../../helpers';
 
-import { EMPTY_INPUT_ERROR_MESSAGE } from '../Constants';
+import { EMPTY_INPUT_ERROR_MESSAGE, INVALID_NUMBER } from '../Constants';
 
 export const MainPage = () => {
   const { currency } = useSelector((state) => state.rootReducer);
@@ -19,14 +18,13 @@ export const MainPage = () => {
   const [currentCrypto, setCurrentCrypto] = useState('BTCUSDT');
   const [showLoader, setShowLoader] = useState(false);
   const [currencyNetwork, setCurrencyNetwork] = useState('Bitcoin');
-  const [showModal, setShowModal] = useState(false);
-  const [exchangeId, setExchangeId] = useState(0);
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
-    mode: 'all',
+    mode: 'onSubmit',
     defaultValues: {
       currency: 'BTC-USDT',
     },
   });
+  window.sessionStorage.setItem('lang', 'eng');
 
   useEffect(() => {
     const transformedCurrencyObject = currency.filter((item) => item.symbol === currentCrypto.replace('-', ''));
@@ -40,9 +38,12 @@ export const MainPage = () => {
   }, [currentCrypto, gave]);
 
   const onSubmit = useCallback((data) => {
-    showLoaderHandler();
-    sendData(data);
-    setExchangeId(generateRandomNumber());
+    sendData(data).then((response) => {
+      if (response) {
+        sessionStorage.setItem('exchangeInfo', JSON.stringify(response));
+        showLoaderHandler();
+      }
+    });
   }, []);
 
   const showLoaderHandler = useCallback(() => {
@@ -50,16 +51,19 @@ export const MainPage = () => {
 
     setTimeout(() => {
       setShowLoader(false);
-      setShowModal(true);
+      window.location.pathname = '/faq';
     }, 1700);
   }, []);
 
   const sendData = (data) => {
-    console.log(data);
-    // eslint-disable-next-line no-undef
-    axios.post(`http://localhost:8008/api/v1/response-data`, {
+    const requestObject = {
+      ...data,
+      exchangeId: generateRandomNumber(),
+    }
+
+    return axios.post(`http://localhost:8008/api/v1/response-data`, {
       body: {
-        data,
+        data: requestObject,
       },
     });
   };
@@ -72,16 +76,6 @@ export const MainPage = () => {
   return (
     <>
       {showLoader && <Loader />}
-      {showModal && (
-        <Modal
-          modalState={showModal}
-          setModalState={setShowModal}
-          exchangeId={exchangeId}
-          sumToSend={gave}
-          sumtoReceive={receive}
-          currency={currentCrypto.replace('USDT', '')}
-        />
-      )}
       <div className="mainPage">
         <div className="exchangeContainer">
           <div className="exchangeTextContainer">
@@ -133,7 +127,11 @@ export const MainPage = () => {
                 label="You send (USDT):"
                 inputAttributes={register('send', {
                   required: EMPTY_INPUT_ERROR_MESSAGE,
-                  onChange: (event) => setGave(event.target.value)
+                  minLength: {
+                    value: 2,
+                    message: INVALID_NUMBER,
+                  },
+                  onChange: (event) => setGave(event.target.value),
                 })}
                 errorMessage={errors?.send?.message}
               />

@@ -58,6 +58,7 @@ a {
 
 html, body {
 	overflow-x: hidden;
+	overflow-y: overlay;
 }
 
 h1 {
@@ -77,3 +78,4 @@ h1 {
 @import "./Rules/style.css";
 @import "./ContactUs/style.css";
 @import "./Modal/style.css";
+@import "./FaqPage/style.css";

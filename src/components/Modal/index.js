@@ -27,6 +27,7 @@ export const Modal = ({
           <br/>
           Typically it happens during an hour
         </span>
+        <br/>
         <span>
           Address to transfer: <span className="bold">0x5e2bfc30dcc3941149d8c79c637076e78708b850cf9edd146cd8b2136082d3e3</span>
         </span>
